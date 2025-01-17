@@ -42,6 +42,23 @@ docker network inspect 2_docker_sql_mynetwork
 
 LOOK AT THOSE MOUNTED CONTAINERS TO THE NETWORK!!!!! AWWWW JIISSSSS BOOOIII
 
+## Sidebar
+
+You could have also created a network via the cli first:
+
+```bash
+docker network create mynetwork
+```
+
+ and then in your `docker-compose.yaml` just connect to the existing network using:
+
+```bash
+networks:
+  mynetwork:
+    driver: bridge
+    external: true
+```
+
 # Lets connect to those badboys
 
 ## POSTGRESQL
@@ -98,7 +115,7 @@ Then I execute the container twice with some different commands (once for ech da
 ## TRIP DATA
 
 ```bash
-URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"
+URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz"
 
 docker run -it \
   --network=2_docker_sql_mynetwork \
