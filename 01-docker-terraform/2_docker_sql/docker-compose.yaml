@@ -1,5 +1,9 @@
+networks:
+  mynetwork:
+    driver: bridge
 services:
   pgdatabase:
+  # Note in pgadmin host:pgdatabase for connection 
     image: postgres:13
     environment:
       - POSTGRES_USER=root
@@ -9,11 +13,16 @@ services:
       - "./ny_taxi_postgres_data:/var/lib/postgresql/data:rw"
     ports:
       - "5432:5432"
+    networks:
+      - mynetwork
   pgadmin:
     image: dpage/pgadmin4
+    volumes:
+      - ./tmp:/var/lib/pgadmin
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=root
     ports:
       - "8080:80"
-    
+    networks:
+      - mynetwork
